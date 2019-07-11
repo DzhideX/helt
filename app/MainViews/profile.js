@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {Text, View,Image,Button,StyleSheet,TouchableOpacity,AsyncStorage} from 'react-native';
+import {Text, View,Image,Button,StyleSheet,TouchableOpacity} from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export class Profile extends Component{
   constructor(props){

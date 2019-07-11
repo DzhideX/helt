@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View,Button,Image,AsyncStorage} from 'react-native';
+import {Platform, StyleSheet, Text, View,Button,Image} from 'react-native';
 import { createStackNavigator, createAppContainer,StackActions, NavigationActions,createBottomTabNavigator} from 'react-navigation';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import { mainHome as mainHome} from "./MainViews/home.js";
 import { cardOne as cardOne} from "./MainViews/home.js";

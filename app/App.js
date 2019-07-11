@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { createStackNavigator, createAppContainer,StackActions,NavigationActions,WithNavigation } from 'react-navigation';
-import {View,Text,AsyncStorage,StyleSheet,TouchableOpacity} from 'react-native';
+import {View,Text,StyleSheet,TouchableOpacity} from 'react-native';//AsyncStorage,
+import AsyncStorage from '@react-native-community/async-storage';
 
 import { MainView as MainView } from "./main.js";
 import { Login as Login } from './LoginViews/login.js';

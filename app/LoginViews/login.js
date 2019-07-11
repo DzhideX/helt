@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {TouchableOpacity, StyleSheet, Text, View,Button, TextInput,AsyncStorage} from 'react-native';
+import {TouchableOpacity, StyleSheet, Text, View,Button, TextInput} from 'react-native';
 import {StackActions,NavigationActions} from 'react-navigation';
+import AsyncStorage from '@react-native-community/async-storage';
 import ImagePicker from 'react-native-image-crop-picker';
 
 
@@ -24,6 +25,7 @@ export class Login extends Component{
                 var users = JSON.parse(value);
                 counter = users.length;
                 while(counter--){
+                    console.log(counter);
                     if(users[counter].username === firstName && users[counter].password === lastName){
                         users[counter].loggedIn = true;
                         var data = JSON.stringify(users);
@@ -39,7 +41,7 @@ export class Login extends Component{
                             console.log(error);
                           }
                           break;
-                    }else{
+                    }else if(counter===0){
                         alert("Wrong credentials! ");
                     }
                 }
