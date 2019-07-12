@@ -1,18 +1,23 @@
 import React, {Component} from 'react';
-import {Text, View,Image,Button,StyleSheet,TouchableOpacity} from 'react-native';
+import {Text, View,Image,Button,StyleSheet,TouchableOpacity,TextInput} from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 import AsyncStorage from '@react-native-community/async-storage';
 
 export class Profile extends Component{
+
+  static navigationOptions = {
+    header:null
+}
   constructor(props){
     super(props)
     this.state={
       imageUri:'file:///storage/emulated/0/Pictures/7f713e0f-3d4c-4220-91f3-5da8fc14210c.jpg',
-      username:'',height:'',weight:'',sex:''
+      username:'',height:'',weight:'',sex:'',profile:false
     };
   }
 
   // SETTING UP THE PAGE
+
   componentDidMount = async () => {
     const { username } = this.state;
     try {
@@ -47,6 +52,8 @@ export class Profile extends Component{
            this.setState({imageUri:`${image.path}`});
           });
   }
+  
+  // LOG OUT BUTTON
 
   logOut = async () => {
     try {
@@ -75,19 +82,21 @@ export class Profile extends Component{
     }
   }
 
-    static navigationOptions = {
-        header:null
-    }
 
     render(){
       return(
         <View style={{alignItems: 'center',justifyContent:'center',width:'100%',height:'100%',backgroundColor:'rgb(126,174,252)'}}>
-            <View style = {{
+            
+  {/*------------------------------------------------------------------------------------ */}
+
+            {/* IF INFORMATION IS BEING SHOWN: */}
+
+            {this.state.profile && <View style = {{
               marginTop:'10.0em',
               backgroundColor:'white',
               width: '85%',
               alignItems: 'center',
-              height:'70%',
+              height:'75%',
               marginTop: 0,  
               borderRadius:5 
           }} >
@@ -105,30 +114,82 @@ export class Profile extends Component{
 
               {/* PROFILE DATA */}
 
-            <Text> Username: {this.state.username} </Text>
-            <Text> Height: {this.state.height} </Text>
-            <Text> Weight: {this.state.weight} </Text>
-            <Text> Gender: {this.state.sex} </Text>
+            <Text style={[styles.text,{marginTop:30}]}> Username: {this.state.username} </Text>
+            <Text style={styles.text}> Height: {this.state.height} </Text>
+            <Text style={styles.text}> Weight: {this.state.weight} </Text>
+            <Text style={[styles.text,{marginBottom:0}]}> Gender: {this.state.sex} </Text>
+            
             <TouchableOpacity
-          onPress={() => this.logOut()}
-            style={[styles.card,{marginTop:15,width:150,height:50,borderWidth:2,borderColor:'rgb(126,174,252)',justifyContent:'center'}]}>
-              <Text> Log out! </Text>
+            onPress={()=>{this.state.profile === true ? this.changeCard() : this.updateProfile()}}
+            style={[styles.updateProfile,{backgroundColor:'white',borderColor:'rgb(126,174,252)',borderRadius:5}]}>
+              <Text style={{color:'rgb(126,174,252)'}}> {this.state.profile === true ? 'Update profile' : 'Update info'} </Text>
             </TouchableOpacity>
-            {/* <Button title="stuff" onpress={()=>this.pickImage()}/> */}
-            </View>   
+
+            </View>}
+  {/*------------------------------------------------------------------------------------ */}
+
+            {/* IF INFORMATION IS BEING UPDATED: */}
+
+            {this.state.profile === false && <View style = {{
+          marginTop:'10.0em',
+          backgroundColor:'white',
+          width: '85%',
+          alignItems: 'center',
+          height:'75%',
+          marginTop: 0,  
+          borderRadius:5 
+      }} >
+
+      {/* PROFILE PICTURES */}
+
+        <TouchableOpacity style={{borderRadius:150}} onPress={()=> alert("YO!")}>
+          <Image style={{
+            marginTop:-30,
+            borderWidth:3,
+            borderRadius:150,
+            borderColor:'white'
+          }} source={{uri:`${this.state.imageUri}`,width:150,height:150}}/>
+        </TouchableOpacity> 
+
+        <TextInput placeholder="Height" onChangeText = {firstName => this.setState({firstName})} style={[styles.input,{marginTop:10}]}></TextInput>
+        <TextInput placeholder="Weight:" style={[styles.input,{marginTop:10}]} ></TextInput> 
+        
+        <TouchableOpacity
+        onPress={()=>{this.state.profile === true ? this.changeCard() : this.updateProfile()}}
+        style={[styles.updateProfile,{backgroundColor:'white',borderColor:'rgb(126,174,252)',borderRadius:5}]}>
+          <Text style={{color:'rgb(126,174,252)'}}> {this.state.profile === true ? 'Update profile' : 'Update info'} </Text>
+        </TouchableOpacity>
+
+        </View> }
+  {/*------------------------------------------------------------------------------------ */}
+            
+            {/* LOG OUT BUTTON HERE */}
+
+            <TouchableOpacity
+            style={styles.updateProfile}
+            onPress={() => this.logOut()}
+            >
+              <Text style={{color:'white'}}> Log out! </Text>
+            </TouchableOpacity>
         </View>
       );
     }
   }
 
-// [styles.card]
 
-  styles=StyleSheet.create({
+  const styles=StyleSheet.create({
+    input:{
+      width:'75%',
+      borderStyle: 'solid',
+      borderBottomWidth: 3,
+      borderBottomColor: 'white',
+      fontFamily:'Acme-Regular'
+  },
     card:{
-      backgroundColor:'red',
+      backgroundColor:'white',
       width: '85%',
       alignItems: 'center',
-      height:'70%',
+      height:'75%',
       marginTop: 0,  
       borderRadius:5 
   },
@@ -138,5 +199,29 @@ export class Profile extends Component{
     width:'100%',
     borderWidth:3,
     borderRadius:150,
-    borderColor:'white'}
+    borderColor:'white'
+  },
+    updateProfile:{
+      backgroundColor:'rgb(126,174,252)',
+      alignItems: 'center',
+      justifyContent:'center',
+      borderColor:'white',
+      borderWidth:2,
+      marginTop: 35,  
+      borderRadius:30,
+      width:200,
+      height:35
+    },
+    text:{
+      fontFamily:'PermanentMarker-Regular',
+      marginTop:10,
+      marginBottom:10,
+      fontSize:25,
+      color:'rgb(250,250,250)',
+      // borderWidth:1,
+      // borderColor:'blue'
+      textShadowColor:'#214AA9',
+      textShadowOffset:{width:0, height:0},
+      textShadowRadius:10
+    }
   })
