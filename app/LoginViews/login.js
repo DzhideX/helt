@@ -56,6 +56,9 @@ export class Login extends Component{
             this.username = username;
             this.password = password;
             this.loggedIn = false;
+            this.height = '';
+            this.weight = '';
+            this.sex = '';
           }
         const {firstName,lastName} = this.state;
           var user = new User(firstName,lastName);

@@ -7,11 +7,33 @@ export class Profile extends Component{
   constructor(props){
     super(props)
     this.state={
-      imageUri:'file:///storage/emulated/0/Pictures/7f713e0f-3d4c-4220-91f3-5da8fc14210c.jpg'
+      imageUri:'file:///storage/emulated/0/Pictures/7f713e0f-3d4c-4220-91f3-5da8fc14210c.jpg',
+      username:'',height:'',weight:'',sex:''
     };
   }
 
-  lol = 'stuff';
+  // SETTING UP THE PAGE
+  componentDidMount = async () => {
+    const { username } = this.state;
+    try {
+      const value = await AsyncStorage.getItem('userbase');
+      var users = JSON.parse(value);
+      counter = users.length;
+      while(counter--){
+          if(users[counter].loggedIn === true){
+            this.setState({username: users[counter].username});
+            this.setState({height: users[counter].height});
+            this.setState({weight: users[counter].weight});
+            this.setState({sex: users[counter].sex});
+            break;
+          }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  // FUNCTION FOR PICKING PROFILE IMAGE
 
   pickImage=()=>{
     const{imageUri} = this.state;
@@ -60,31 +82,61 @@ export class Profile extends Component{
     render(){
       return(
         <View style={{alignItems: 'center',justifyContent:'center',width:'100%',height:'100%',backgroundColor:'rgb(126,174,252)'}}>
-            <View style={[styles.card,{zIndex:-1}]}>
-            <TouchableOpacity style={{marginTop:50,height:175,width:175,borderRadius:150,borderWidth:3,borderColor:'white',borderStyle:'solid'}}>
-              <Image style={{height:'100%',width:'100%',borderRadius:150}} source={{uri:`${this.state.imageUri}`,
-            width:'100%',height:'100%'}}/>
+            <View style = {{
+              marginTop:'10.0em',
+              backgroundColor:'white',
+              width: '85%',
+              alignItems: 'center',
+              height:'70%',
+              marginTop: 0,  
+              borderRadius:5 
+          }} >
+
+          {/* PROFILE PICTURES */}
+
+            <TouchableOpacity style={{borderRadius:150}} onPress={()=> alert("YO!")}>
+              <Image style={{
+                marginTop:-30,
+                borderWidth:3,
+                borderRadius:150,
+                borderColor:'white'
+              }} source={{uri:`${this.state.imageUri}`,width:150,height:150}}/>
             </TouchableOpacity>  
-            <Text> stuff</Text>
+
+              {/* PROFILE DATA */}
+
+            <Text> Username: {this.state.username} </Text>
+            <Text> Height: {this.state.height} </Text>
+            <Text> Weight: {this.state.weight} </Text>
+            <Text> Gender: {this.state.sex} </Text>
             <TouchableOpacity
           onPress={() => this.logOut()}
             style={[styles.card,{marginTop:15,width:150,height:50,borderWidth:2,borderColor:'rgb(126,174,252)',justifyContent:'center'}]}>
               <Text> Log out! </Text>
             </TouchableOpacity>
-            <Button title="stuff" onpress={()=>this.pickImage()}/>
+            {/* <Button title="stuff" onpress={()=>this.pickImage()}/> */}
             </View>   
         </View>
       );
     }
   }
 
+// [styles.card]
+
   styles=StyleSheet.create({
     card:{
-      backgroundColor:'white',
+      backgroundColor:'red',
       width: '85%',
       alignItems: 'center',
-      height:'85%',
+      height:'70%',
       marginTop: 0,  
       borderRadius:5 
-  }
+  },
+  image:{
+    marginTop:-30,
+    height:'100%',
+    width:'100%',
+    borderWidth:3,
+    borderRadius:150,
+    borderColor:'white'}
   })
