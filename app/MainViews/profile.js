@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View,Image,Button,StyleSheet,TouchableOpacity,TextInput} from 'react-native';
+import {Text, View,Image,Button,StyleSheet,TouchableOpacity,TextInput,Picker} from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -12,14 +12,22 @@ export class Profile extends Component{
     super(props)
     this.state={
       imageUri:'file:///storage/emulated/0/Pictures/7f713e0f-3d4c-4220-91f3-5da8fc14210c.jpg',
-      username:'',height:'',weight:'',sex:'',profile:false
+      username:'',height:'',weight:'',sex:'',profile:true,
+      tempHeight:'',tempWeight:'',tempSex:'male'
     };
+  }
+
+  componentWillMount = () => {
+    console.log('stuff');
+    const { profile } = this.state;
+    this.setState({profile:true});
   }
 
   // SETTING UP THE PAGE
 
   componentDidMount = async () => {
-    const { username } = this.state;
+    const { username,sex,imageUri } = this.state;
+    console.log(sex);
     try {
       const value = await AsyncStorage.getItem('userbase');
       var users = JSON.parse(value);
@@ -40,18 +48,41 @@ export class Profile extends Component{
 
   // FUNCTION FOR PICKING PROFILE IMAGE
 
-  pickImage=()=>{
-    const{imageUri} = this.state;
-      ImagePicker.openPicker({
-            width: 250,
-            height: 250,
-            borderRadius:50,
-            cropping: true
-          }).then(image => {
-            console.log(image)
-           this.setState({imageUri:`${image.path}`});
-          });
-  }
+  // pickImage = async () => {
+  //   var picture = '';
+  //   const{imageUri} = this.state;
+  //     ImagePicker.openPicker({
+  //           width: 250,
+  //           height: 250,
+  //           borderRadius:50,
+  //           cropping: true
+  //         }).then(image => {
+  //           picture = image;
+  //         });
+  //         console.log(picture);
+  //         try {
+  //           const value = await AsyncStorage.getItem('userbase');
+  //           var users = JSON.parse(value);
+  //           counter = users.length;
+  //           while(counter--){
+  //               if(users[counter].loggedIn === true){
+  //                 users[counter].profilePic = picture.path;
+  //                 var data = JSON.stringify(users);
+  //                 console.log(data);
+  //                 try {
+  //                   const value = await AsyncStorage.setItem('userbase',data);
+  //                   this.setState({imageUri:`${picture.path}`});
+  //                     console.log(`Successfully updated the profile picture of the user:  ${users[counter].username} with password ${users[counter].password}!`);
+  //                 } catch (error) {
+  //                   console.log(error);
+  //                 }
+  //                 break;
+  //               }
+  //           }
+  //         } catch (error) {
+  //           console.log(error);
+  //         }
+  // }
   
   // LOG OUT BUTTON
 
@@ -82,6 +113,58 @@ export class Profile extends Component{
     }
   }
 
+  // CHANGE CARD
+
+  changeCard = () => {
+    const { profile } = this.state;
+    if(profile === true){
+      this.setState({profile:false});
+    }else{
+      this.setState({profile:true});
+    }
+  }
+
+  // UPDATE PROFILE
+
+  updateProfile = async () => {
+      const { tempSex,tempHeight,tempWeight } = this.state;
+      console.log(tempSex,tempHeight,tempWeight);
+      if(tempHeight === '' || tempWeight === ''){
+        alert("One of the fields is empty!")
+      }else{
+
+        try {
+          const value = await AsyncStorage.getItem('userbase');
+          var users = JSON.parse(value);
+          counter = users.length;
+          while(counter--){
+              if(users[counter].loggedIn === true){
+                users[counter].sex = tempSex;
+                users[counter].height = parseInt(tempHeight);
+                users[counter].weight = parseInt(tempWeight);
+                var num = tempWeight/((tempHeight/100)*(tempHeight/100));
+                users[counter].BMI = Math.round(num * 100) / 100;
+                var data = JSON.stringify(users);
+                console.log(data);
+                try {
+                  const value = await AsyncStorage.setItem('userbase',data);
+                    console.log(`Successfully updated information of the user:  ${users[counter].username} with password ${users[counter].password}!`);
+                    this.setState({sex:tempSex});
+                    this.setState({height:tempHeight});
+                    this.setState({weight:tempWeight});
+                    this.setState({profile:true});
+                } catch (error) {
+                  console.log(error);
+                }
+                break;
+              }
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+  }
+
 
     render(){
       return(
@@ -96,6 +179,7 @@ export class Profile extends Component{
               backgroundColor:'white',
               width: '85%',
               alignItems: 'center',
+              justifyContent:'center',
               height:'75%',
               marginTop: 0,  
               borderRadius:5 
@@ -103,20 +187,20 @@ export class Profile extends Component{
 
           {/* PROFILE PICTURES */}
 
-            <TouchableOpacity style={{borderRadius:150}} onPress={()=> alert("YO!")}>
+            {/* <TouchableOpacity style={{borderRadius:150}} onPress={()=> this.pickImage()}>
               <Image style={{
                 marginTop:-30,
                 borderWidth:3,
                 borderRadius:150,
                 borderColor:'white'
-              }} source={{uri:`${this.state.imageUri}`,width:150,height:150}}/>
-            </TouchableOpacity>  
-
+              }} source={require('goal.png')}/>
+            </TouchableOpacity>   */}
+{/* ${this.state.imageUri} */}
               {/* PROFILE DATA */}
 
             <Text style={[styles.text,{marginTop:30}]}> Username: {this.state.username} </Text>
-            <Text style={styles.text}> Height: {this.state.height} </Text>
-            <Text style={styles.text}> Weight: {this.state.weight} </Text>
+            <Text style={styles.text}> Height: {this.state.height === '' ? '' : this.state.height+'cm' }  </Text>
+            <Text style={styles.text}> Weight: {this.state.weight === '' ? '' : this.state.weight+'kg' } </Text>
             <Text style={[styles.text,{marginBottom:0}]}> Gender: {this.state.sex} </Text>
             
             <TouchableOpacity
@@ -135,6 +219,7 @@ export class Profile extends Component{
           backgroundColor:'white',
           width: '85%',
           alignItems: 'center',
+          justifyContent:'center',
           height:'75%',
           marginTop: 0,  
           borderRadius:5 
@@ -142,22 +227,27 @@ export class Profile extends Component{
 
       {/* PROFILE PICTURES */}
 
-        <TouchableOpacity style={{borderRadius:150}} onPress={()=> alert("YO!")}>
-          <Image style={{
-            marginTop:-30,
-            borderWidth:3,
-            borderRadius:150,
-            borderColor:'white'
-          }} source={{uri:`${this.state.imageUri}`,width:150,height:150}}/>
-        </TouchableOpacity> 
-
-        <TextInput placeholder="Height" onChangeText = {firstName => this.setState({firstName})} style={[styles.input,{marginTop:10}]}></TextInput>
-        <TextInput placeholder="Weight:" style={[styles.input,{marginTop:10}]} ></TextInput> 
+        <TextInput placeholder="Height"  onChangeText = {tempHeight => this.setState({tempHeight})} style={[styles.input,{marginTop:10}]}></TextInput>
+        <TextInput placeholder="Weight:" onChangeText = {tempWeight => this.setState({tempWeight})} style={[styles.input,{marginTop:10}]} ></TextInput> 
+        <Picker
+        selectedValue={this.state.language}
+        style={{height: 50, width: 117,marginTop:10}}
+        onValueChange={(itemValue) =>
+        this.setState({tempSex: itemValue})}>
+          <Picker.Item label="Male" value="male" />
+          <Picker.Item label="Female" value="female" />
+        </Picker>
         
         <TouchableOpacity
         onPress={()=>{this.state.profile === true ? this.changeCard() : this.updateProfile()}}
         style={[styles.updateProfile,{backgroundColor:'white',borderColor:'rgb(126,174,252)',borderRadius:5}]}>
           <Text style={{color:'rgb(126,174,252)'}}> {this.state.profile === true ? 'Update profile' : 'Update info'} </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+        onPress={()=>{this.changeCard()}}
+        style={[styles.updateProfile,{backgroundColor:'white',borderColor:'rgb(126,174,252)',borderRadius:5}]}>
+          <Text style={{color:'rgb(126,174,252)'}}> Go Back </Text>
         </TouchableOpacity>
 
         </View> }
@@ -182,7 +272,7 @@ export class Profile extends Component{
       width:'75%',
       borderStyle: 'solid',
       borderBottomWidth: 3,
-      borderBottomColor: 'white',
+      borderBottomColor: 'rgb(126,174,252)',
       fontFamily:'Acme-Regular'
   },
     card:{
