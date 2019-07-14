@@ -59,6 +59,7 @@ export class Login extends Component{
             this.height = '';
             this.weight = '';
             this.sex = '';
+            this.BMI = '';
           }
         const {firstName,lastName} = this.state;
           var user = new User(firstName,lastName);
