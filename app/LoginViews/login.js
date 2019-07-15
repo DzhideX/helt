@@ -57,7 +57,7 @@ export class Login extends Component{
             this.password = password;
             this.loggedIn = false;
             this.height = '';
-            this.weight = '';
+            this.weight = [];
             this.sex = '';
             this.BMI = '';
           }

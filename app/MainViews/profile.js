@@ -13,7 +13,7 @@ export class Profile extends Component{
     this.state={
       imageUri:'file:///storage/emulated/0/Pictures/7f713e0f-3d4c-4220-91f3-5da8fc14210c.jpg',
       username:'',height:'',weight:'',sex:'',profile:true,
-      tempHeight:'',tempWeight:'',tempSex:'male'
+      tempHeight:'',tempWeight:'',tempSex:'male',tempDate:''
     };
   }
 
@@ -34,9 +34,14 @@ export class Profile extends Component{
       counter = users.length;
       while(counter--){
           if(users[counter].loggedIn === true){
+            if((users[counter].weight).length === 0){
+              var lastWeight = '';
+            }else{
+              var lastWeight = ((users[counter].weight)[(users[counter].weight).length-1]).value;
+            }
             this.setState({username: users[counter].username});
             this.setState({height: users[counter].height});
-            this.setState({weight: users[counter].weight});
+            this.setState({weight: lastWeight});
             this.setState({sex: users[counter].sex});
             break;
           }
@@ -127,21 +132,34 @@ export class Profile extends Component{
   // UPDATE PROFILE
 
   updateProfile = async () => {
+      function Weight(date,value){
+        this.date = date;
+        this.value = value;
+      }
       const { tempSex,tempHeight,tempWeight } = this.state;
       console.log(tempSex,tempHeight,tempWeight);
       if(tempHeight === '' || tempWeight === ''){
         alert("One of the fields is empty!")
       }else{
-
+        var date = JSON.stringify(new Date());
+        console.log(date);
+        var newDate = '';
+        for(var i = 1; i<=10;i++){
+            newDate += date[i];
+        }
+        var newWeight = new Weight(newDate,parseInt(tempWeight));
         try {
           const value = await AsyncStorage.getItem('userbase');
           var users = JSON.parse(value);
           counter = users.length;
           while(counter--){
               if(users[counter].loggedIn === true){
-                users[counter].sex = tempSex;
+                // if((users[counter].weight).date === newDate){
+                //   alert("You can not update your profile more than once per day!")
+                // }else{
+                  users[counter].sex = tempSex;
                 users[counter].height = parseInt(tempHeight);
-                users[counter].weight = parseInt(tempWeight);
+                (users[counter].weight).push(newWeight);
                 var num = tempWeight/((tempHeight/100)*(tempHeight/100));
                 users[counter].BMI = Math.round(num * 100) / 100;
                 var data = JSON.stringify(users);
@@ -157,6 +175,7 @@ export class Profile extends Component{
                   console.log(error);
                 }
                 break;
+                // }
               }
           }
         } catch (error) {

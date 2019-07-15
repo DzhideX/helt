@@ -44,6 +44,8 @@ class SplashScreen extends Component {
     // }catch(error){
     //   console.log(error);
     // }
+
+
     this.setState({
       isLoading: false
     });
