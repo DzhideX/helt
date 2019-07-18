@@ -144,9 +144,11 @@ export class Profile extends Component{
         var date = JSON.stringify(new Date());
         console.log(date);
         var newDate = '';
-        for(var i = 1; i<=10;i++){
+        for(var i = 6; i<=10;i++){
             newDate += date[i];
         }
+        var split = newDate.split('-');
+        newDate = `${split[1]}.${split[0]}`
         var newWeight = new Weight(newDate,parseInt(tempWeight));
         try {
           const value = await AsyncStorage.getItem('userbase');
@@ -204,19 +206,6 @@ export class Profile extends Component{
               borderRadius:5 
           }} >
 
-          {/* PROFILE PICTURES */}
-
-            {/* <TouchableOpacity style={{borderRadius:150}} onPress={()=> this.pickImage()}>
-              <Image style={{
-                marginTop:-30,
-                borderWidth:3,
-                borderRadius:150,
-                borderColor:'white'
-              }} source={require('goal.png')}/>
-            </TouchableOpacity>   */}
-{/* ${this.state.imageUri} */}
-              {/* PROFILE DATA */}
-
             <Text style={[styles.text,{marginTop:30}]}> Username: {this.state.username} </Text>
             <Text style={styles.text}> Height: {this.state.height === '' ? '' : this.state.height+'cm' }  </Text>
             <Text style={styles.text}> Weight: {this.state.weight === '' ? '' : this.state.weight+'kg' } </Text>
@@ -249,8 +238,9 @@ export class Profile extends Component{
         <TextInput placeholder="Height"  onChangeText = {tempHeight => this.setState({tempHeight})} style={[styles.input,{marginTop:10}]}></TextInput>
         <TextInput placeholder="Weight:" onChangeText = {tempWeight => this.setState({tempWeight})} style={[styles.input,{marginTop:10}]} ></TextInput> 
         <Picker
-        selectedValue={this.state.language}
-        style={{height: 50, width: 117,marginTop:10}}
+        selectedValue={this.state.tempSex}
+        itemStyle={{fontFamily:'Acme-Regular'}}
+        style={{height: 50, width: 135,marginTop:10,}}
         onValueChange={(itemValue) =>
         this.setState({tempSex: itemValue})}>
           <Picker.Item label="Male" value="male" />

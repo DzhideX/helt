@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Keyboard, StyleSheet, Text, View,Button,TouchableOpacity,TouchableWithoutFeedback,ScrollView} from 'react-native';
+import {Keyboard, StyleSheet, Text, View,Button,TouchableOpacity,TouchableWithoutFeedback,ScrollView,Image} from 'react-native';
 import { NavigationEvents,createStackNavigator, createAppContainer,StackActions, NavigationActions,createBottomTabNavigator} from 'react-navigation';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -143,7 +143,7 @@ export class mainHome extends Component{
             {/* <Text style = {{fontSize:25}}> Your specific BMI is: {this.state.BMI} </Text>
             <Text> To learn more about what this means click this box! </Text> */}
             </TouchableOpacity>
-            <TouchableOpacity onPress={()=>this.test()} style={[styles.card,{height:80}]}>
+            <TouchableOpacity onPress={()=>this.props.navigation.navigate("cardTwo")} style={[styles.card,{height:80}]}>
             <Text style = {{fontSize:23,fontFamily:'FugazOne-Regular',color:'rgb(30,30,30)'}}> Current waist size is:  </Text>
             </TouchableOpacity>
             <TouchableOpacity style={[styles.textCard]}>
@@ -169,19 +169,61 @@ export class mainHome extends Component{
 
 export class cardOne extends Component{
 
+
     static navigationOptions = {
         header:null
     }
 
+    constructor(props){
+        super(props)
+        this.state={BMI:''};}
+
+
     render(){
         return( 
         <View style={{alignItems: 'center',height:'100%',backgroundColor:'rgb(126,174,252)'}}> 
-        <TouchableOpacity style={[styles.card,{}]}>
+
+            <NavigationEvents
+          onWillFocus={async () => {
+            
+            try {
+                const value = await AsyncStorage.getItem('userbase');
+                var users = JSON.parse(value);
+                counter = users.length;
+                while(counter--){
+                    if(users[counter].loggedIn === true){
+                        console.log("BMI SCREEN:"+JSON.stringify(users[counter]));
+                        this.setState({BMI:users[counter].BMI});
+                      break;
+                    }
+                }
+              } catch (error) {
+                console.log(error);
+              }
+          }}
+        />
+        <View style={[styles.card,{height:50,marginTop:10}]}>
+            <Text style = {{margin:12,fontSize:23,fontFamily:'FugazOne-Regular',color:'rgb(30,30,30)'}}>
+                Your specific BMI is: {this.state.BMI}            
+            </Text>
+        </View>
+        <View style={[styles.card,{marginTop:10}]}>
             <Text style = {{margin:12,fontSize:15,fontFamily:'FugazOne-Regular',color:'rgb(30,30,30)'}}>
             Body mass index (BMI) is a measure of body fat based on height and weight that applies to adult men and women.
             </Text>
-            </TouchableOpacity>
         </View>
+        <Image
+        style={{height:320,width:'90%',margin:10}}
+        source={require('../icons/stick3_cm-.jpg')}/>
+        
+        <View style={[styles.card,{height:95,marginTop:0}]}>
+            <Text style = {{marginLeft:12,marginRight:12,fontSize:15,fontFamily:'FugazOne-Regular',color:'rgb(30,30,30)'}}>
+                    The body mass index is not a perfect indicator of your health. For more specific information consult your physician!
+            </Text>
+        </View>
+
+        </View>
+        
         );
     }
 }
@@ -195,7 +237,28 @@ export class cardTwo extends Component{
 
     render(){
         return(
-        <View > 
+            <View style={{alignItems: 'center',height:'100%',backgroundColor:'rgb(126,174,252)'}}> 
+
+            <NavigationEvents
+          onWillFocus={async () => {
+            
+            try {
+                const value = await AsyncStorage.getItem('userbase');
+                var users = JSON.parse(value);
+                counter = users.length;
+                while(counter--){
+                    if(users[counter].loggedIn === true){
+                        console.log("BMI SCREEN:"+users[counter]);
+                        this.setState({BMI:users[counter].BMI});
+                      break;
+                    }
+                }
+              } catch (error) {
+                console.log(error);
+              }
+          }}
+        />
+        
         </View>
         );
     }

@@ -43,6 +43,7 @@
 		C08343413A6B482FB3DE8D25 /* libRNGestureHandler-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 175E4D6380ED47C7BD71C0E0 /* libRNGestureHandler-tvOS.a */; };
 		4D1F29E31AFA426E8953D43C /* libimageCropPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 637371F5DF384BD89EE6A77D /* libimageCropPicker.a */; };
 		7EF73F504DF1487E8D0BF68A /* libRNCAsyncStorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 617EE760E7624C9989D68209 /* libRNCAsyncStorage.a */; };
+		D4080C08DA164C54A5DD34EE /* libRCTBluetoothSerial.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9407FB1748294E6CB26CE8E3 /* libRCTBluetoothSerial.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -357,6 +358,8 @@
 		637371F5DF384BD89EE6A77D /* libimageCropPicker.a */ = {isa = PBXFileReference; name = "libimageCropPicker.a"; path = "libimageCropPicker.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		B04C5587115A4DB39E1103BE /* RNCAsyncStorage.xcodeproj */ = {isa = PBXFileReference; name = "RNCAsyncStorage.xcodeproj"; path = "../node_modules/@react-native-community/async-storage/ios/RNCAsyncStorage.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		617EE760E7624C9989D68209 /* libRNCAsyncStorage.a */ = {isa = PBXFileReference; name = "libRNCAsyncStorage.a"; path = "libRNCAsyncStorage.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		C0EE93B51BFB49BB926A3FE4 /* RCTBluetoothSerial.xcodeproj */ = {isa = PBXFileReference; name = "RCTBluetoothSerial.xcodeproj"; path = "../node_modules/react-native-bluetooth-serial-next/ios/RCTBluetoothSerial.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		9407FB1748294E6CB26CE8E3 /* libRCTBluetoothSerial.a */ = {isa = PBXFileReference; name = "libRCTBluetoothSerial.a"; path = "libRCTBluetoothSerial.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -388,6 +391,7 @@
 				3F4AA27D96074C798D1C1021 /* libRNGestureHandler.a in Frameworks */,
 				4D1F29E31AFA426E8953D43C /* libimageCropPicker.a in Frameworks */,
 				7EF73F504DF1487E8D0BF68A /* libRNCAsyncStorage.a in Frameworks */,
+				D4080C08DA164C54A5DD34EE /* libRCTBluetoothSerial.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -581,6 +585,7 @@
 				0E4DA7E3EDA64BF8BE0009BA /* RNGestureHandler.xcodeproj */,
 				25196002979043BE9CFA51CB /* imageCropPicker.xcodeproj */,
 				B04C5587115A4DB39E1103BE /* RNCAsyncStorage.xcodeproj */,
+				C0EE93B51BFB49BB926A3FE4 /* RCTBluetoothSerial.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1212,12 +1217,14 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-image-crop-picker\ios/**",
 					"$(SRCROOT)\..\node_modules\@react-native-community\async-storage\ios",
+					"$(SRCROOT)\..\node_modules\react-native-bluetooth-serial-next\ios\RCTBluetoothSerial",
 				);
 			};
 			name = Debug;
@@ -1243,12 +1250,14 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-image-crop-picker\ios/**",
 					"$(SRCROOT)\..\node_modules\@react-native-community\async-storage\ios",
+					"$(SRCROOT)\..\node_modules\react-native-bluetooth-serial-next\ios\RCTBluetoothSerial",
 				);
 			};
 			name = Release;
@@ -1274,6 +1283,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-image-crop-picker\ios/**",
 					"$(SRCROOT)\..\node_modules\@react-native-community\async-storage\ios",
+					"$(SRCROOT)\..\node_modules\react-native-bluetooth-serial-next\ios\RCTBluetoothSerial",
 				);
 			};
 			name = Debug;
@@ -1298,6 +1308,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-image-crop-picker\ios/**",
 					"$(SRCROOT)\..\node_modules\@react-native-community\async-storage\ios",
+					"$(SRCROOT)\..\node_modules\react-native-bluetooth-serial-next\ios\RCTBluetoothSerial",
 				);
 			};
 			name = Release;
@@ -1331,12 +1342,14 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-image-crop-picker\ios/**",
 					"$(SRCROOT)\..\node_modules\@react-native-community\async-storage\ios",
+					"$(SRCROOT)\..\node_modules\react-native-bluetooth-serial-next\ios\RCTBluetoothSerial",
 				);
 			};
 			name = Debug;
@@ -1370,12 +1383,14 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-image-crop-picker\ios/**",
 					"$(SRCROOT)\..\node_modules\@react-native-community\async-storage\ios",
+					"$(SRCROOT)\..\node_modules\react-native-bluetooth-serial-next\ios\RCTBluetoothSerial",
 				);
 			};
 			name = Release;
@@ -1408,12 +1423,14 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-image-crop-picker\ios/**",
 					"$(SRCROOT)\..\node_modules\@react-native-community\async-storage\ios",
+					"$(SRCROOT)\..\node_modules\react-native-bluetooth-serial-next\ios\RCTBluetoothSerial",
 				);
 			};
 			name = Debug;
@@ -1446,12 +1463,14 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-image-crop-picker\ios/**",
 					"$(SRCROOT)\..\node_modules\@react-native-community\async-storage\ios",
+					"$(SRCROOT)\..\node_modules\react-native-bluetooth-serial-next\ios\RCTBluetoothSerial",
 				);
 			};
 			name = Release;
