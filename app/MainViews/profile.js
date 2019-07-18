@@ -161,7 +161,7 @@ export class Profile extends Component{
                 users[counter].height = parseInt(tempHeight);
                 (users[counter].weight).push(newWeight);
                 var num = tempWeight/((tempHeight/100)*(tempHeight/100));
-                users[counter].BMI = Math.round(num * 100) / 100;
+                users[counter].BMI = Math.round(num * 10) / 10;
                 var data = JSON.stringify(users);
                 console.log(data);
                 try {
