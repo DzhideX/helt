@@ -1,4 +1,6 @@
 rootProject.name = 'HELT2'
+include ':easy-bluetooth-classic'
+project(':easy-bluetooth-classic').projectDir = new File(rootProject.projectDir, '../node_modules/easy-bluetooth-classic/android')
 include ':@react-native-community_async-storage'
 project(':@react-native-community_async-storage').projectDir = new File(rootProject.projectDir, '../node_modules/@react-native-community/async-storage/android')
 include ':react-native-image-crop-picker'
@@ -7,5 +9,7 @@ include ':react-native-gesture-handler'
 project(':react-native-gesture-handler').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-gesture-handler/android')
 include ':react-native-svg'
 project(':react-native-svg').projectDir = new File(rootProject.projectDir, 	'../node_modules/react-native-svg/android')
+include ':react-native-bluetooth-serial'
+project(':react-native-bluetooth-serial').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-bluetooth-serial/android')
 
 include ':app'

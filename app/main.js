@@ -6,6 +6,9 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { mainHome as mainHome} from "./MainViews/home.js";
 import { cardOne as cardOne} from "./MainViews/home.js";
 import { cardTwo as cardTwo} from "./MainViews/home.js";
+import { cardThree as cardThree} from "./MainViews/home.js";
+import { cardFour as cardFour} from "./MainViews/home.js";
+import { cardFive as cardFive} from "./MainViews/home.js";
 import { Profile as Profile} from "./MainViews/profile.js";
 import { Progress as Progress} from "./MainViews/progress.js";
 
@@ -79,7 +82,10 @@ export class MainView extends Component{
 var HomeStackNavigator = createStackNavigator({
   main: mainHome,
   cardOne:cardOne,
-  cardTwo:cardTwo
+  cardTwo:cardTwo,
+  cardThree:cardThree,
+  cardFour: cardFour,
+  cardFive: cardFive
 });
 
 // THE TAB NAVIGATOR 

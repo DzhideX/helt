@@ -10,7 +10,7 @@ export class Login extends Component{
     constructor(props){
         super(props)
         this.state={
-          firstName:'',lastName:'',login:false
+          firstName:'',lastName:'',login:true
         };
       }
 
@@ -90,7 +90,8 @@ export class Login extends Component{
                     console.log(data);
                     try {
                           const value = await AsyncStorage.setItem('userbase',data);
-                            console.log(`Succesfully signed up as ${user.username} with password ${user.password}!`);
+                            alert(`Succesfully signed up as ${user.username} with password ${user.password}!`);
+                            this.setState({login:true});
                         } catch (error) {
                           console.log(error);
                         }

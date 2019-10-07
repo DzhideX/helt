@@ -206,10 +206,10 @@ export class Profile extends Component{
               borderRadius:5 
           }} >
 
-            <Text style={[styles.text,{marginTop:30}]}> Username: {this.state.username} </Text>
-            <Text style={styles.text}> Height: {this.state.height === '' ? '' : this.state.height+'cm' }  </Text>
-            <Text style={styles.text}> Weight: {this.state.weight === '' ? '' : this.state.weight+'kg' } </Text>
-            <Text style={[styles.text,{marginBottom:0}]}> Gender: {this.state.sex} </Text>
+            <Text style={[styles.text,{marginTop:30}]}> Username:   {this.state.username} </Text>
+            <Text style={styles.text}> Height:   {this.state.height === '' ? '' : this.state.height+'cm' }  </Text>
+            <Text style={styles.text}> Weight:   {this.state.weight === '' ? '' : this.state.weight+'kg' } </Text>
+            <Text style={[styles.text,{marginBottom:25}]}> Gender:   {this.state.sex} </Text>
             
             <TouchableOpacity
             onPress={()=>{this.state.profile === true ? this.changeCard() : this.updateProfile()}}
@@ -312,15 +312,15 @@ export class Profile extends Component{
       height:35
     },
     text:{
-      fontFamily:'PermanentMarker-Regular',
+      fontFamily:'Acme-Regular',//PermanentMarker-Regular
       marginTop:10,
       marginBottom:10,
-      fontSize:25,
-      color:'rgb(250,250,250)',
+      fontSize:30,
+      color:'rgb(80,80,80)',
       // borderWidth:1,
       // borderColor:'blue'
-      textShadowColor:'#214AA9',
-      textShadowOffset:{width:0, height:0},
-      textShadowRadius:10
+      // textShadowColor:'#214AA9',
+      // textShadowOffset:{width:0, height:0},
+      // textShadowRadius:10
     }
   })
